@@ -77,14 +77,14 @@ fn main() {
 /// * 'input' - vector to normalize
 fn normalize(input: Vec<PlotData>) -> Vec<PlotData> {
     let mut result: Vec<PlotData> = Vec::new();
-    let end = input[input.len()-1].x;
+    let end = input[input.len()-1].minutes as f64;
 
     let max_value = input.iter().map(|p| p.pv).fold(0.0, |acc, p| p.max(acc));
 
     for i in input {
         result.push(PlotData{
             minutes: i.minutes,
-            x: i.x / end,
+            x: i.minutes as f64 / end,
             pv: i.pv / max_value,
         });
     }
