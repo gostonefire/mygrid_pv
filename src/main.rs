@@ -29,13 +29,8 @@ struct PlotData {
 }
 
 #[derive(Serialize)]
-struct Data {
-    x: f64,
-    y: f64,
-}
-#[derive(Serialize)]
 struct PVDiagram {
-    pv_data: Vec<Data>,
+    pv_data: Vec<f64>,
 }
 
 /// Program that takes a mygrid stats file as input and produces a normalized file over
@@ -252,9 +247,9 @@ fn get_csv_record(path: &Path) -> Result<(Vec<PowerRecord>, DateTime<Local>), CS
 /// * 'config_file' - the file to save the PVDiagram struct into
 /// * 'input' - the vector of PlotData to save as json
 fn save_pv_diagram(config_file: &str, input: &Vec<PlotData>) {
-    let mut pv_data: Vec<Data> = Vec::new();
+    let mut pv_data: Vec<f64> = Vec::new();
     for i in input {
-        pv_data.push(Data{ x: i.x, y: i.pv })
+        pv_data.push(i.pv);
     }
     let pv_diagram = PVDiagram { pv_data };
 
